@@ -11,11 +11,9 @@ public class Sequence {
         for (int i = 0; i < ROUNDS; i++) {
             container[i] = (int) (Math.random() * 37);
 
-            if (container[i] == 0)
-                container[i] = 0;
-            else if ((container[i] % 2) == 0)
-                container[i] = 1;
-            else container[i] = -1;
+            if (container[i] != 0) {
+                container[i] = (container[i] % 2) * 2 - 1;
+            }
         }
 
         int count = 0;
