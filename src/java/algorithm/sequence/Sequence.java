@@ -1,4 +1,4 @@
-package sequence;
+package algorithm.sequence;
 
 public class Sequence {
 
