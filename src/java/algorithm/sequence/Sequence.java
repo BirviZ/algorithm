@@ -4,6 +4,9 @@ public class Sequence {
 
     public static void main(String[] args) {
         final int ROUNDS = 10;
+        final int RED = 1;
+        final int BLACK = -1;
+        final int ZERO = 0;
 
         int zeroes = 0, blacks = 0, reds = 0, maxZeroSequence = 0, maxRedSequence = 0, maxBlackSequence = 0;
 
@@ -43,7 +46,7 @@ public class Sequence {
                 }
             }
 
-            if (isBlack && (i == -1)) {
+            if (isBlack && (i == BLACK)) {
                 count++;
                 blacks++;
                 if (maxBlackSequence < count) {
@@ -52,7 +55,7 @@ public class Sequence {
                 continue;
             }
 
-            if (isRed && (i == 1)) {
+            if (isRed && (i == RED)) {
                 count++;
                 reds++;
                 if (maxRedSequence < count) {
@@ -61,7 +64,7 @@ public class Sequence {
                 continue;
             }
 
-            if (isZero && (i == 0)) {
+            if (isZero && (i == ZERO)) {
                 count++;
                 zeroes++;
                 if (maxZeroSequence < count) {
