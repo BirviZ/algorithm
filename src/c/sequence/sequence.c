@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 
-#define ROUNDS 10
+#define ROUNDS 100
 #define RED 1
 #define BLACK -1
 #define ZERO 0
@@ -22,16 +22,52 @@ int main() {
 		if (container[i] != 0) {
 			container[i] = (container[i] % 2) * 2 - 1;
 		}
-		printf("%d ", container[i]);
 	}
 
-    /*    int[] container = new int[ROUNDS];
-        for (int i = 0; i < ROUNDS; i++) {
-            container[i] = (int) (Math.random() * 37);
+    //Init counter
+    int count = 0;
 
-            if (container[i] != 0) {
-                container[i] = (container[i] % 2) * 2 - 1; //Convert value (red 1, black -1, zero 0)
+    //Count sequences
+    for (int i = 0; i < ROUNDS; i++) {
+
+        //Count red sequence
+        if (container[i] == RED) {
+            while (container[i] == RED) {
+                reds++;
+                count++;
+                if (++i == ROUNDS) break;
             }
-        } */
+            if (count > maxRedSequence) {
+                maxRedSequence = count;
+            }
+
+        //Count black sequence
+        } else if (container[i] == BLACK) {
+            while (container[i] == BLACK) {
+                blacks++;
+                count++;
+                if (++i == ROUNDS) break;
+            }
+            if (count > maxBlackSequence) {
+                maxBlackSequence = count;
+            }
+
+        //count zero sequence
+        } else if (container[i] == ZERO) {
+            while (container[i] == ZERO) {
+                zeroes++;
+                count++;
+                if (++i == ROUNDS) break;
+            }
+            if (count > maxZeroSequence) {
+                maxZeroSequence = count;
+            }
+        }
+        count = 0;
+        i--;
+    }
+
+    printf("Reds:\t\t\t%d\nMaximum sequence:\t%d\n\nBlacks:\t\t\t%d\nMaximum sequence:\t%d\n\nZeroes:\t\t\t%d\nMaximum sequence:\t%d\n", reds, maxRedSequence, blacks, maxBlackSequence, zeroes, maxZeroSequence);
+
 	return 0;
 }
