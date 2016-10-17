@@ -23,36 +23,36 @@ public class Sequence {
 
         for (int i = 0; i < container.length; i++) {
             if (container[i] == RED) {
-                while (i < container.length || container[i] == RED) {
+                while (container[i] == RED) {
                     reds++;
                     count++;
-                    i++;
+                    if (++i == container.length) break;
                 }
                 if (count > maxRedSequence) {
                     maxRedSequence = count;
                     count = 0;
                 }
-            } else if (container[i] == BLACK) {
-                while (i < container.length || container[i] == BLACK) {
-                    blacks++;
-                    count++;
-                    i++;
-                }
-                if (count > maxBlackSequence) {
-                    maxBlackSequence = count;
-                    count = 0;
-                }   
-            } else {
-                while (i < container.length || container[i] == ZERO) {
-                    zeroes++;
-                    count++;
-                    i++;
-                }
-                if (count > maxZeroSequence) {
-                    maxZeroSequence = count;
-                    count = 0;
-                }
-            }
+            }// } else if (container[i] == BLACK) {
+            //     while (i < container.length || container[i] == BLACK) {
+            //         blacks++;
+            //         count++;
+            //         i++;
+            //     }
+            //     if (count > maxBlackSequence) {
+            //         maxBlackSequence = count;
+            //         count = 0;
+            //     }   
+            // } else {
+            //     while (i < container.length || container[i] == ZERO) {
+            //         zeroes++;
+            //         count++;
+            //         i++;
+            //     }
+            //     if (count > maxZeroSequence) {
+            //         maxZeroSequence = count;
+            //         count = 0;
+            //     }
+            // }
         }
 
         String text = "";
