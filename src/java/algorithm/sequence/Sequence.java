@@ -20,64 +20,52 @@ public class Sequence {
         }
 
         int count = 0;
-        boolean isBlack = false, isRed = false, isZero = false, isSequence = false;
-        for (int i : container) {
-            System.out.print(i + ", ");
-            if (!isSequence) {
-                switch (i) {
-                    case -1:
-                        isBlack = true;
-                        isRed = false;
-                        isZero = false;
-                        isSequence = true;
-                        break;
-                    case 1:
-                        isBlack = false;
-                        isRed = true;
-                        isZero = false;
-                        isSequence = true;
-                        break;
-                    default:
-                        isBlack = false;
-                        isRed = false;
-                        isZero = true;
-                        isSequence = true;
 
+        for (int i = 0; i < container.length; i++) {
+            if (container[i] == RED) {
+                while (i < container.length || container[i] == RED) {
+                    reds++;
+                    count++;
+                    i++;
                 }
-            }
-
-            if (isBlack && (i == BLACK)) {
-                count++;
-                blacks++;
-                if (maxBlackSequence < count) {
-                    maxBlackSequence = count;
-                }
-                continue;
-            }
-
-            if (isRed && (i == RED)) {
-                count++;
-                reds++;
-                if (maxRedSequence < count) {
+                if (count > maxRedSequence) {
                     maxRedSequence = count;
+                    count = 0;
                 }
-                continue;
-            }
-
-            if (isZero && (i == ZERO)) {
-                count++;
-                zeroes++;
-                if (maxZeroSequence < count) {
+            } else if (container[i] == BLACK) {
+                while (i < container.length || container[i] == BLACK) {
+                    blacks++;
+                    count++;
+                    i++;
+                }
+                if (count > maxBlackSequence) {
+                    maxBlackSequence = count;
+                    count = 0;
+                }   
+            } else {
+                while (i < container.length || container[i] == ZERO) {
+                    zeroes++;
+                    count++;
+                    i++;
+                }
+                if (count > maxZeroSequence) {
                     maxZeroSequence = count;
+                    count = 0;
                 }
-                continue;
             }
-
-            count = 0;
-            isSequence = false;
         }
 
-        String text = "-----------------------------------\n";
+        String text = "";
+
+        for (int i = 0; i < container.length; i++) {
+            text += container[i] + " ";
+        }
+
+        System.out.println(text);
+
+        text = "";
+
+        text = "-----------------------------------\n";
 
         text += "Reds:\t\t\t" + reds + "\n";
         text += "Maximum sequence: \t" + maxRedSequence + "\n\n";
