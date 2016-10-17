@@ -3,7 +3,7 @@ package algorithm.sequence;
 public class Sequence {
 
     public static void main(String[] args) {
-        final int ROUNDS = 10;
+        final int ROUNDS = 100;
         final int RED = 1;
         final int BLACK = -1;
         final int ZERO = 0;
@@ -30,42 +30,32 @@ public class Sequence {
                 }
                 if (count > maxRedSequence) {
                     maxRedSequence = count;
-                    count = 0;
                 }
-            }// } else if (container[i] == BLACK) {
-            //     while (i < container.length || container[i] == BLACK) {
-            //         blacks++;
-            //         count++;
-            //         i++;
-            //     }
-            //     if (count > maxBlackSequence) {
-            //         maxBlackSequence = count;
-            //         count = 0;
-            //     }   
-            // } else {
-            //     while (i < container.length || container[i] == ZERO) {
-            //         zeroes++;
-            //         count++;
-            //         i++;
-            //     }
-            //     if (count > maxZeroSequence) {
-            //         maxZeroSequence = count;
-            //         count = 0;
-            //     }
-            // }
+            } else if (container[i] == BLACK) {
+                while (container[i] == BLACK) {
+                    blacks++;
+                    count++;
+                    if (++i == container.length) break;
+                }
+                if (count > maxBlackSequence) {
+                    maxBlackSequence = count;
+                }   
+            } else if (container[i] == ZERO) {
+                while (container[i] == ZERO) {
+                    zeroes++;
+                    count++;
+                    if (++i == container.length) break;
+                }
+                if (count > maxZeroSequence) {
+                    maxZeroSequence = count;
+                }
+            }
+            count = 0;
+            i--;
         }
 
-        String text = "";
 
-        for (int i = 0; i < container.length; i++) {
-            text += container[i] + " ";
-        }
-
-        System.out.println(text);
-
-        text = "";
-
-        text = "-----------------------------------\n";
+        String text = "-----------------------------------\n";
 
         text += "Reds:\t\t\t" + reds + "\n";
         text += "Maximum sequence: \t" + maxRedSequence + "\n\n";
