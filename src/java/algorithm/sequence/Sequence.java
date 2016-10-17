@@ -3,79 +3,70 @@ package algorithm.sequence;
 public class Sequence {
 
     public static void main(String[] args) {
-        final int ROUNDS = 10;
 
+        //Define constants
+        final int ROUNDS = 100;
+        final int RED = 1;
+        final int BLACK = -1;
+        final int ZERO = 0;
+
+        //init variables
         int zeroes = 0, blacks = 0, reds = 0, maxZeroSequence = 0, maxRedSequence = 0, maxBlackSequence = 0;
 
+        //Fill sequence
         int[] container = new int[ROUNDS];
         for (int i = 0; i < ROUNDS; i++) {
             container[i] = (int) (Math.random() * 37);
 
-            if (container[i] == 0)
-                container[i] = 0;
-            else if ((container[i] % 2) == 0)
-                container[i] = 1;
-            else container[i] = -1;
+            if (container[i] != 0) {
+                container[i] = (container[i] % 2) * 2 - 1; //Convert value (red 1, black -1, zero 0)
+            }
         }
 
+        //Init counter
         int count = 0;
-        boolean isBlack = false, isRed = false, isZero = false, isSequence = false;
-        for (int i : container) {
-            System.out.print(i + ", ");
-            if (!isSequence) {
-                switch (i) {
-                    case -1:
-                        isBlack = true;
-                        isRed = false;
-                        isZero = false;
-                        isSequence = true;
-                        break;
-                    case 1:
-                        isBlack = false;
-                        isRed = true;
-                        isZero = false;
-                        isSequence = true;
-                        break;
-                    default:
-                        isBlack = false;
-                        isRed = false;
-                        isZero = true;
-                        isSequence = true;
 
+        //Count sequences
+        for (int i = 0; i < container.length; i++) {
+
+            //Count red sequence
+            if (container[i] == RED) {
+                while (container[i] == RED) {
+                    reds++;
+                    count++;
+                    if (++i == container.length) break;
                 }
-            }
-
-            if (isBlack && (i == -1)) {
-                count++;
-                blacks++;
-                if (maxBlackSequence < count) {
-                    maxBlackSequence = count;
-                }
-                continue;
-            }
-
-            if (isRed && (i == 1)) {
-                count++;
-                reds++;
-                if (maxRedSequence < count) {
+                if (count > maxRedSequence) {
                     maxRedSequence = count;
                 }
-                continue;
-            }
 
-            if (isZero && (i == 0)) {
-                count++;
-                zeroes++;
-                if (maxZeroSequence < count) {
+            //Count black sequence
+            } else if (container[i] == BLACK) {
+                while (container[i] == BLACK) {
+                    blacks++;
+                    count++;
+                    if (++i == container.length) break;
+                }
+                if (count > maxBlackSequence) {
+                    maxBlackSequence = count;
+                }
+
+            //count zero sequence
+            } else if (container[i] == ZERO) {
+                while (container[i] == ZERO) {
+                    zeroes++;
+                    count++;
+                    if (++i == container.length) break;
+                }
+                if (count > maxZeroSequence) {
                     maxZeroSequence = count;
                 }
-                continue;
             }
-
             count = 0;
-            isSequence = false;
+            i--;
         }
 
+        //Result output
         String text = "-----------------------------------\n";
 
         text += "Reds:\t\t\t" + reds + "\n";
